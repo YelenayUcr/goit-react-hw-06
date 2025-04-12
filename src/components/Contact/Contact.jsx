@@ -16,7 +16,7 @@ const Contact = ({ contact }) => {
         onClick={() => dispatch(deleteContact(contact.id))}
         className={styles.deleteButton}
       >
-        Sil
+        Delete
       </button>
     </div>
   );

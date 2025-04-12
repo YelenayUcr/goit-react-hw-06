@@ -1,25 +1,35 @@
 // src/redux/contactsSlice.js
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { fetchInitialContacts } from '../api/contactsApi';
+
+export const loadContacts = createAsyncThunk(
+  'contacts/loadContacts',
+  async () => {
+    const response = await fetchInitialContacts();
+    return response;
+  }
+);
 
 const contactsSlice = createSlice({
   name: 'contacts',
   initialState: {
-    items: []
+    items: [],
   },
   reducers: {
-    addContact: (state, action) => {
-      // Yeni iletişim ekleme (action.payload: { id, name, ... })
+    addContact(state, action) {
       state.items.push(action.payload);
     },
-    deleteContact: (state, action) => {
-      // action.payload olarak iletilen id'ye göre silme işlemi
+    deleteContact(state, action) {
       state.items = state.items.filter(contact => contact.id !== action.payload);
-    }
-  }
+    },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(loadContacts.fulfilled, (state, action) => {
+      state.items = action.payload;
+    });
+  },
 });
 
-// Seçici (selector) fonksiyonu: items listesini döndürür
-export const selectContacts = state => state.contacts.items;
-
 export const { addContact, deleteContact } = contactsSlice.actions;
+export const selectContacts = state => state.contacts.items;
 export default contactsSlice.reducer;

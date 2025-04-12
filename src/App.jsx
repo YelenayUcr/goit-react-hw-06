@@ -6,10 +6,18 @@ import Contact from './components/Contact/Contact';
 import { useSelector } from 'react-redux';
 import { selectContacts } from './redux/contactsSlice';
 import { selectNameFilter } from './redux/filtersSlice';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { loadContacts } from './redux/contactsSlice';
 
 function App() {
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectNameFilter);
+   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(loadContacts());
+  }, [dispatch]);
   
   // İsim filtresi uygulanarak kontak listesi oluşturuluyor.
   const filteredContacts = contacts.filter(contact =>
@@ -18,10 +26,10 @@ function App() {
 
   return (
     <div style={{ padding: '20px' }}>
-      <h1>İletişim Kitabı</h1>
+      <h1>Communication Book</h1>
       <ContactsForm />
       <SearchBox />
-      <h2>Rehber</h2>
+      <h2>Directory</h2>
       {filteredContacts.map(contact => (
         <Contact key={contact.id} contact={contact} />
       ))}

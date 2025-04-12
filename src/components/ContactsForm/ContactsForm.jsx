@@ -31,7 +31,7 @@ const ContactsForm = () => {
   return (
     <form className={styles.form} onSubmit={handleSubmit}>
       <label className={styles.label}>
-        İsim:
+        Name:
         <input
           type="text"
           value={name}
@@ -40,7 +40,7 @@ const ContactsForm = () => {
         />
       </label>
       <label className={styles.label}>
-        Telefon:
+        Phone:
         <input
           type="tel"
           value={number}
@@ -48,7 +48,7 @@ const ContactsForm = () => {
           className={styles.input}
         />
       </label>
-      <button type="submit" className={styles.button}>Ekle</button>
+      <button type="submit" className={styles.button}>Add</button>
     </form>
   );
 };

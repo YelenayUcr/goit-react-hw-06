@@ -15,7 +15,7 @@ const SearchBox = () => {
   return (
     <div className={styles.searchBox}>
       <label className={styles.label}>
-        Ara:
+        Search:
         <input
           type="text"
           value={filterValue}
