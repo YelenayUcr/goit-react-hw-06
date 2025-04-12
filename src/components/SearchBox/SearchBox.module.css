@@ -1,0 +1,15 @@
+/* src/components/SearchBox/SearchBox.module.css */
+.searchBox {
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.input {
+    margin-left: 8px;
+    padding: 5px;
+    font-size: 1rem;
+}

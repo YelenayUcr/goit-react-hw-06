@@ -1,0 +1,26 @@
+/* src/components/ContactsForm/ContactsForm.module.css */
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.label {
+    font-weight: bold;
+}
+
+.input {
+    margin-top: 5px;
+    padding: 5px;
+    font-size: 1rem;
+}
+
+.button {
+    padding: 8px 12px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
