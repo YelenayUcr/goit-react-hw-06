@@ -1,25 +1,22 @@
-// src/App.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import ContactsForm from './components/ContactsForm/ContactsForm';
 import SearchBox from './components/SearchBox/SearchBox';
 import Contact from './components/Contact/Contact';
-import { useSelector } from 'react-redux';
-import { selectContacts } from './redux/contactsSlice';
+import { useSelector, useDispatch } from 'react-redux';
+import { selectContacts, loadContacts } from './redux/contactsSlice';
 import { selectNameFilter } from './redux/filtersSlice';
-import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { loadContacts } from './redux/contactsSlice';
 
 function App() {
+  const dispatch = useDispatch();
   const contacts = useSelector(selectContacts);
   const filter = useSelector(selectNameFilter);
-   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadContacts());
-  }, [dispatch]);
-  
-  // İsim filtresi uygulanarak kontak listesi oluşturuluyor.
+    if (contacts.length === 0) {
+      dispatch(loadContacts());
+    }
+  }, [dispatch, contacts.length]);
+
   const filteredContacts = contacts.filter(contact =>
     contact.name.toLowerCase().includes(filter.toLowerCase())
   );

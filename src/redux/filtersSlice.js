@@ -1,4 +1,3 @@
-// src/redux/filtersSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const filtersSlice = createSlice({
@@ -13,7 +12,6 @@ const filtersSlice = createSlice({
   }
 });
 
-// Seçici (selector) fonksiyonu: filtre değerini döndürür.
 export const selectNameFilter = state => state.filters.name;
 
 export const { changeFilter } = filtersSlice.actions;

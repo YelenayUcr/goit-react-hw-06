@@ -1,4 +1,3 @@
-// src/components/SearchBox/SearchBox.jsx
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeFilter, selectNameFilter } from '../../redux/filtersSlice';

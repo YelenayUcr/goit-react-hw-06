@@ -1,4 +1,3 @@
-// src/redux/contactsSlice.js
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import { fetchInitialContacts } from '../api/contactsApi';
 

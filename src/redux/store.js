@@ -1,32 +1,38 @@
-// src/redux/store.js
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage'; 
+import { combineReducers } from 'redux';
 import contactsReducer from './contactsSlice';
 import filtersReducer from './filtersSlice';
 
-import storage from 'redux-persist/lib/storage'; // varsayılan localStorage
-import { persistStore, persistReducer } from 'redux-persist';
+import {
+  FLUSH,
+  REHYDRATE,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+} from 'redux-persist';
 
-// Sadece contacts diliminin items alanını persist etmek için whitelist kullanıyoruz.
-const persistConfig = {
+const contactsPersistConfig = {
   key: 'contacts',
   storage,
-  whitelist: ['items'] // contacts reducer state içinde yalnızca "items" alanı saklanacak
+  whitelist: ['items'], 
 };
 
 const rootReducer = combineReducers({
-  contacts: persistReducer(persistConfig, contactsReducer),
-  filters: filtersReducer
+  contacts: persistReducer(contactsPersistConfig, contactsReducer),
+  filters: filtersReducer,
 });
 
 export const store = configureStore({
   reducer: rootReducer,
-  middleware: getDefaultMiddleware =>
+  middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        // redux-persist'in kullanılan bazı action'larını dışarıda bırakıyoruz.
-        ignoredActions: ['persist/PERSIST', 'persist/REHYDRATE']
-      }
-    })
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+      },
+    }),
 });
 
 export const persistor = persistStore(store);
